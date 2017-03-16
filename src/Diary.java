@@ -1,8 +1,12 @@
 import java.util.Scanner;
+import java.sql.*;
 
 public class Diary {
 
     private static final String DB_URL = "jdbc:sqlite:diary.db";
+    Connection conn = null;
+    Statement stmt = null;
+
 
     private void chooseCase() {
         Scanner scanner = new Scanner(System.in);
@@ -20,16 +24,16 @@ public class Diary {
             System.out.println();
 
             if (choice == 1) {
-                addSession();
                 System.out.println("Du valgte 1");
+                addSession();
             }
             else if (choice == 2) {
-                getBest();
+                //getBest()
                 System.out.println("Du valgte 2");
             }
             else if (choice == 3) {
-                getStats();
                 System.out.println("Du valgte 3");
+                getStats();
             }
             else if (choice < 1 || choice > 3) {
                 System.out.println("YOU CHOSE POORLY");
@@ -39,15 +43,36 @@ public class Diary {
     }
 
     private void addSession() {
-        // TODO: Will fill in with a whole bunch of while loops and souts when the query is ready
-    }
+        try {
+            conn = DriverManager.getConnection(DB_URL);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-    private void getBest() {
-        // TODO: Not a lot that has to be done here really, just print out the data we want with some text.
+        Scanner scanner = new Scanner(System.in);
+
+        String str = scanner.nextLine();
+        int i = scanner.nextInt();
+
+        System.out.println("" + str + i);
     }
 
     private void getStats() {
-        // TODO: Not a lot goes on here either, just a fancy query really.
+
+
+
+        String q = "SELECT * FROM TRENINGSOKT";
+        try {
+            ResultSet res = stmt.executeQuery(q);
+            System.out.println(res);
+        }
+        catch (NullPointerException e) {
+            System.out.println("Could not find any stats");
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+
     }
 
     public static void main(String[] args) {
