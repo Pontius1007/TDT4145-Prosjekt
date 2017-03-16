@@ -1,6 +1,6 @@
 import java.sql.*;
 import java.util.*;
-import java.util.Date;
+
 
 public class Diary {
 
@@ -9,6 +9,7 @@ public class Diary {
     Statement stmt = null;
 
     private void chooseCase() {
+
         try {
             System.out.println("Kobler til databasen43434343434343...");
             conn = DriverManager.getConnection(DB_URL);
@@ -17,6 +18,7 @@ public class Diary {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         Scanner scanner = new Scanner(System.in);
         while (true) {
 
@@ -34,9 +36,8 @@ public class Diary {
             if (choice == 1) {
                 addSession();
                 System.out.println("Du valgte 1");
-            }
-            else if (choice == 2) {
-                //getBest()
+            } else if (choice == 2) {
+                getBest();
                 System.out.println("Du valgte 2");
             }
             else if (choice == 3) {
@@ -54,34 +55,33 @@ public class Diary {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Please enter the entry id");
-        Integer id = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("Please enter the date");
+        System.out.println("Hva var datoen for treningen? (string)");
         String dato = scanner.nextLine();
-        System.out.println("Please enter the start time ");
+        System.out.println("Når på dagen startet treningen? (string)");
         String Tidspunkt = scanner.nextLine();
-        System.out.println("Please enter duration");
+        System.out.println("Hva var varigheten på treningsøkten? (heltall)");
         Integer Varighet = scanner.nextInt();
-        System.out.println("Please enter personal shape from 1-10");
+        System.out.println("Hvordan vil du plassere din egen form på en skala fra 1 til 10? (heltall)");
         Integer PersonligForm = scanner.nextInt();
         scanner.nextLine();
-        System.out.println("Please enter your personal prestasjon");
+        System.out.println("Beskriv din egen prestasjon");
         String PersonligPrestasjon = scanner.nextLine();
         System.out.println("Hei" + dato + Tidspunkt + Varighet + PersonligForm + PersonligPrestasjon);
-        String trening = String.format("INSERT INTO TRENINGSOKT VALUES(%d,'%s','%s','%d','%d','%s')",id,dato,Tidspunkt,Varighet,PersonligForm,PersonligPrestasjon);
+        String trening = String.format("INSERT INTO TRENINGSOKT (Dato, Tidspunkt, Varighet, PersonligForm, PersonligPrestasjon) VALUES('%s','%s','%d','%d','%s')", dato, Tidspunkt, Varighet, PersonligForm, PersonligPrestasjon);
         System.out.println(trening);
         executeQuery(trening);
 
-
     }
 
-    private void executeQuery(String query){
+    private void getBest() {
+        // TODO: Not a lot that has to be done here really, just print out the data we want with some text.
+    }
+
+    private void executeQuery(String query) {
         try {
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(query);
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("Someting wong with query: " + query);
             System.out.println(e);
         }
@@ -94,7 +94,7 @@ public class Diary {
             stmt = conn.createStatement();
             ResultSet res = stmt.executeQuery(q);
             System.out.println("Henter treningsøkter for denne måneden...");
-            java.util.Date date = new Date();
+            java.util.Date date = new java.util.Date();
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
             int year = cal.get(Calendar.YEAR);
