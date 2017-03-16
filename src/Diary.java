@@ -38,16 +38,13 @@ public class Diary {
             if (choice == 1) {
                 addSession();
                 System.out.println("Du valgte 1");
-            }
-            else if (choice == 2) {
+            } else if (choice == 2) {
                 getBest();
                 System.out.println("Du valgte 2");
-            }
-            else if (choice == 3) {
+            } else if (choice == 3) {
                 getStats();
                 System.out.println("Du valgte 3");
-            }
-            else if (choice < 1 || choice > 3) {
+            } else if (choice < 1 || choice > 3) {
                 System.out.println("YOU CHOSE POORLY");
             }
 
@@ -58,9 +55,6 @@ public class Diary {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Please enter the entry id");
-        Integer id = scanner.nextInt();
-        scanner.nextLine();
         System.out.println("Please enter the date");
         String dato = scanner.nextLine();
         System.out.println("Please enter the start time ");
@@ -73,7 +67,7 @@ public class Diary {
         System.out.println("Please enter your personal prestasjon");
         String PersonligPrestasjon = scanner.nextLine();
         System.out.println("Hei" + dato + Tidspunkt + Varighet + PersonligForm + PersonligPrestasjon);
-        String trening = String.format("INSERT INTO TRENINGSOKT VALUES(%d,'%s','%s','%d','%d','%s')",id,dato,Tidspunkt,Varighet,PersonligForm,PersonligPrestasjon);
+        String trening = String.format("INSERT INTO TRENINGSOKT (Dato, Tidspunkt, Varighet, PersonligForm, PersonligPrestasjon) VALUES('%s','%s','%d','%d','%s')", dato, Tidspunkt, Varighet, PersonligForm, PersonligPrestasjon);
         System.out.println(trening);
         executeQuery(trening);
 
@@ -87,12 +81,11 @@ public class Diary {
         // TODO: Not a lot goes on here either, just a fancy query really.
     }
 
-    private void executeQuery(String query){
+    private void executeQuery(String query) {
         try {
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(query);
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("Someting wong with query: " + query);
             System.out.println(e);
         }
