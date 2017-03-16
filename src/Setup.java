@@ -22,7 +22,6 @@ class Setup {
                 sql += line;
             }
 
-            // Always close files.
             bufferedReader.close();
 
         } catch (IOException e) {
@@ -39,7 +38,6 @@ class Setup {
             Connection conn = DriverManager.getConnection(DB_URL);
             System.out.println("Databasen er tilkoblet...");
 
-
             System.out.println("Lager tabeller...");
             Statement stmt = conn.createStatement();
 
@@ -49,7 +47,5 @@ class Setup {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
     }
 }

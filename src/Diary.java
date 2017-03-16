@@ -1,8 +1,8 @@
-import java.sql.DriverManager;
-import java.util.Scanner;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Scanner;
 
 public class Diary {
 
@@ -11,6 +11,7 @@ public class Diary {
     Statement stmt = null;
 
     private void chooseCase() {
+
         try {
             System.out.println("Kobler til databasen43434343434343...");
             conn = DriverManager.getConnection(DB_URL);
@@ -19,6 +20,7 @@ public class Diary {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         Scanner scanner = new Scanner(System.in);
         while (true) {
 
@@ -38,15 +40,14 @@ public class Diary {
                 System.out.println("Du valgte 1");
             }
             else if (choice == 2) {
-                //getBest()
+                getBest();
                 System.out.println("Du valgte 2");
             }
             else if (choice == 3) {
-                //getStats()
+                getStats();
                 System.out.println("Du valgte 3");
             }
             else if (choice < 1 || choice > 3) {
-                //getStats()
                 System.out.println("YOU CHOSE POORLY");
             }
 
@@ -76,7 +77,14 @@ public class Diary {
         System.out.println(trening);
         executeQuery(trening);
 
+    }
 
+    private void getBest() {
+        // TODO: Not a lot that has to be done here really, just print out the data we want with some text.
+    }
+
+    private void getStats() {
+        // TODO: Not a lot goes on here either, just a fancy query really.
     }
 
     private void executeQuery(String query){
