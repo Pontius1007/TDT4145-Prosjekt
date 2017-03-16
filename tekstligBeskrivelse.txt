@@ -2,15 +2,20 @@ Beskrivelse av applikasjonen:
 
 Vi tok utgangspunkt i usecasene lagt til som eksempler. 
 
-1. Innlegging av en trening med all tilh�rende informasjon. 
-For � l�se dette gir vi brukeren mulighet til � velge "Legg til en Trening"
-som kaller addSessions(). Her tar vi inn de variablene som er n�dvendige, formaterer
+1. Innlegging av en trening med all tilhørende informasjon. 
+For å løse dette gir vi brukeren mulighet til å velge "Legg til en Trening"
+som kaller addSessions(). Her tar vi inn de variablene som er nødvendige, formaterer
 til korrekt string i form av INSERT INTO ... VALUE("...").
-S� kalles executeQuery som ved bruk av Statements kobler seg til databasen og 
-kj�rer execudeUpdate med tilh�rende string. 
+Så kalles executeQuery som ved bruk av Statements kobler seg til databasen og 
+kjører execudeUpdate med tilhørende string. 
 
 2. 
 
 
-3. 
+3. Vi skal hente ut og vise informasjon om alle treningsøkter som er registrert for den nåværende måneden.
+For å løse det gjør vi spørringen SELECT * FROM TRENINGSOKT. 
+Dette er fordi dato er lagret som en string på formen: "åååå-mm-dd".
+Da er det lettere splite stringen på "-" og sjekke om det er rett måned og år med en if-setning.
+Resten blir gjort ved å sjekke om det er en neste i resultatet fra spørringen og hente ut informasjonen fra feltene
+og legge dem til i en string og printe den ut i konsollen.
 
