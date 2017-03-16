@@ -1,8 +1,6 @@
-import java.sql.DriverManager;
-import java.util.Scanner;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.*;
+import java.util.Date;
 
 public class Diary {
 
@@ -26,7 +24,7 @@ public class Diary {
             System.out.println("Velg en handling med 1, 2 eller 3");
             System.out.println("1. Legg til en trening");
             System.out.println("2. Hent ukens beste trening");
-            System.out.println("3. Statistikk fra denne måneden");
+            System.out.println("3. Treningsøkter fra denne måneden");
 
             System.out.print("> ");
             int choice = scanner.nextInt();
@@ -42,11 +40,10 @@ public class Diary {
                 System.out.println("Du valgte 2");
             }
             else if (choice == 3) {
-                //getStats()
                 System.out.println("Du valgte 3");
+                getStats();
             }
             else if (choice < 1 || choice > 3) {
-                //getStats()
                 System.out.println("YOU CHOSE POORLY");
             }
 
@@ -87,6 +84,40 @@ public class Diary {
         catch (SQLException e){
             System.out.println("Someting wong with query: " + query);
             System.out.println(e);
+        }
+    }
+
+    private void getStats() {
+
+        String q = "SELECT * FROM TRENINGSOKT";
+        try {
+            stmt = conn.createStatement();
+            ResultSet res = stmt.executeQuery(q);
+            System.out.println("Henter treningsøkter for denne måneden...");
+            java.util.Date date = new Date();
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            int year = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH) + 1;
+            while(res.next()) {
+                String dato = res.getString("Dato");
+                String[] parts = dato.split("-");
+
+
+                if(Integer.parseInt(parts[1]) == month && Integer.parseInt(parts[0]) == year) {
+
+                    String tidspunkt = res.getString("Tidspunkt");
+                    int varighet = res.getInt("Varighet");
+                    int personligForm = res.getInt("PersonligForm");
+                    String personligPrestasjon = res.getString("PersonligPrestasjon");
+                    System.out.println(String.format(("Dato: %s, Tidspunkt: %s, Varighet: %d, Personlig form: %d/10, " +
+                            "Personlig prestasjon: %s"), dato, tidspunkt, varighet, personligForm, personligPrestasjon));
+                }
+
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
