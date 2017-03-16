@@ -55,16 +55,16 @@ public class Diary {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Please enter the date");
+        System.out.println("Hva var datoen for treningen? (string)");
         String dato = scanner.nextLine();
-        System.out.println("Please enter the start time ");
+        System.out.println("Når på dagen startet treningen? (string)");
         String Tidspunkt = scanner.nextLine();
-        System.out.println("Please enter duration");
+        System.out.println("Hva var varigheten på treningsøkten? (heltall)");
         Integer Varighet = scanner.nextInt();
-        System.out.println("Please enter personal shape from 1-10");
+        System.out.println("Hvordan vil du plassere din egen form på en skala fra 1 til 10? (heltall)");
         Integer PersonligForm = scanner.nextInt();
         scanner.nextLine();
-        System.out.println("Please enter your personal prestasjon");
+        System.out.println("Beskriv din egen prestasjon");
         String PersonligPrestasjon = scanner.nextLine();
         System.out.println("Hei" + dato + Tidspunkt + Varighet + PersonligForm + PersonligPrestasjon);
         String trening = String.format("INSERT INTO TRENINGSOKT (Dato, Tidspunkt, Varighet, PersonligForm, PersonligPrestasjon) VALUES('%s','%s','%d','%d','%s')", dato, Tidspunkt, Varighet, PersonligForm, PersonligPrestasjon);
