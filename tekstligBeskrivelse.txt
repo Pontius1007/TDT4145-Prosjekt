@@ -9,8 +9,11 @@ til korrekt string i form av INSERT INTO ... VALUE("...").
 Så kalles executeQuery som ved bruk av Statements kobler seg til databasen og 
 kjører execudeUpdate med tilhørende string. 
 
-2. 
-
+2. Vi ønsker å gi brukeren evnen til å hente ut den beste treningsøkten noensinne.
+vi bedømmer en treningsøkt på ytelsen brukeren skriver inn selv. For å håndtere like økter ganger vi ytelsen
+med lengden på økten, da en veldig god økt er mer imponerende hvis den varte i tre timer enn hvis den varte i
+tre minutter. Dette løser vi enkelt og greit med spørringen SELECT * FROM TRENINGSOKT, da vi ønsker å bruke all
+dataen for treningsøkten. 
 
 3. Vi skal hente ut og vise informasjon om alle treningsøkter som er registrert for den nåværende måneden.
 For å løse det gjør vi spørringen SELECT * FROM TRENINGSOKT. 
