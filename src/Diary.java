@@ -1,5 +1,8 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Scanner;
-import java.sql.*;
 
 public class Diary {
 
@@ -7,8 +10,17 @@ public class Diary {
     Connection conn = null;
     Statement stmt = null;
 
-
     private void chooseCase() {
+
+        try {
+            System.out.println("Kobler til databasen43434343434343...");
+            conn = DriverManager.getConnection(DB_URL);
+            System.out.println("Databasen er tilkoblet...");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         Scanner scanner = new Scanner(System.in);
         while (true) {
 
@@ -24,18 +36,15 @@ public class Diary {
             System.out.println();
 
             if (choice == 1) {
-                System.out.println("Du valgte 1");
                 addSession();
-            }
-            else if (choice == 2) {
-                //getBest()
+                System.out.println("Du valgte 1");
+            } else if (choice == 2) {
+                getBest();
                 System.out.println("Du valgte 2");
-            }
-            else if (choice == 3) {
-                System.out.println("Du valgte 3");
+            } else if (choice == 3) {
                 getStats();
-            }
-            else if (choice < 1 || choice > 3) {
+                System.out.println("Du valgte 3");
+            } else if (choice < 1 || choice > 3) {
                 System.out.println("YOU CHOSE POORLY");
             }
 
@@ -43,36 +52,43 @@ public class Diary {
     }
 
     private void addSession() {
-        try {
-            conn = DriverManager.getConnection(DB_URL);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
         Scanner scanner = new Scanner(System.in);
 
-        String str = scanner.nextLine();
-        int i = scanner.nextInt();
+        System.out.println("Hva var datoen for treningen? (string)");
+        String dato = scanner.nextLine();
+        System.out.println("Når på dagen startet treningen? (string)");
+        String Tidspunkt = scanner.nextLine();
+        System.out.println("Hva var varigheten på treningsøkten? (heltall)");
+        Integer Varighet = scanner.nextInt();
+        System.out.println("Hvordan vil du plassere din egen form på en skala fra 1 til 10? (heltall)");
+        Integer PersonligForm = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Beskriv din egen prestasjon");
+        String PersonligPrestasjon = scanner.nextLine();
+        System.out.println("Hei" + dato + Tidspunkt + Varighet + PersonligForm + PersonligPrestasjon);
+        String trening = String.format("INSERT INTO TRENINGSOKT (Dato, Tidspunkt, Varighet, PersonligForm, PersonligPrestasjon) VALUES('%s','%s','%d','%d','%s')", dato, Tidspunkt, Varighet, PersonligForm, PersonligPrestasjon);
+        System.out.println(trening);
+        executeQuery(trening);
 
-        System.out.println("" + str + i);
+    }
+
+    private void getBest() {
+        // TODO: Not a lot that has to be done here really, just print out the data we want with some text.
     }
 
     private void getStats() {
+        // TODO: Not a lot goes on here either, just a fancy query really.
+    }
 
-
-
-        String q = "SELECT * FROM TRENINGSOKT";
+    private void executeQuery(String query) {
         try {
-            ResultSet res = stmt.executeQuery(q);
-            System.out.println(res);
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(query);
+        } catch (SQLException e) {
+            System.out.println("Someting wong with query: " + query);
+            System.out.println(e);
         }
-        catch (NullPointerException e) {
-            System.out.println("Could not find any stats");
-        }
-        catch (SQLException e){
-            e.printStackTrace();
-        }
-
     }
 
     public static void main(String[] args) {
