@@ -1,0 +1,16 @@
+Beskrivelse av applikasjonen: 
+
+Vi tok utgangspunkt i usecasene lagt til som eksempler. 
+
+1. Innlegging av en trening med all tilhørende informasjon. 
+For å løse dette gir vi brukeren mulighet til å velge "Legg til en Trening"
+som kaller addSessions(). Her tar vi inn de variablene som er nødvendige, formaterer
+til korrekt string i form av INSERT INTO ... VALUE("...").
+Så kalles executeQuery som ved bruk av Statements kobler seg til databasen og 
+kjører execudeUpdate med tilhørende string. 
+
+2. 
+
+
+3. 
+
