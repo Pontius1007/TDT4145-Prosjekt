@@ -24,15 +24,14 @@ public class Diary {
                 System.out.println("Du valgte 1");
             }
             else if (choice == 2) {
-                //getBest()
+                getBest();
                 System.out.println("Du valgte 2");
             }
             else if (choice == 3) {
-                //getStats()
+                getStats();
                 System.out.println("Du valgte 3");
             }
             else if (choice < 1 || choice > 3) {
-                //getStats()
                 System.out.println("YOU CHOSE POORLY");
             }
 
@@ -40,7 +39,15 @@ public class Diary {
     }
 
     private void addSession() {
+        // TODO: Will fill in with a whole bunch of while loops and souts when the query is ready
+    }
 
+    private void getBest() {
+        // TODO: Not a lot that has to be done here really, just print out the data we want with some text.
+    }
+
+    private void getStats() {
+        // TODO: Not a lot goes on here either, just a fancy query really.
     }
 
     public static void main(String[] args) {
