@@ -1,7 +1,4 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Scanner;
 
 public class Diary {
@@ -74,7 +71,42 @@ public class Diary {
     }
 
     private void getBest() {
-        // TODO: Not a lot that has to be done here really, just print out the data we want with some text.
+
+
+        try {
+            stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM TRENINGSOKT");
+
+            int best = 0;
+            String bestStr = "";
+
+            while (rs.next()) {
+                int id = rs.getInt("T_ID");
+                String date = rs.getString("Dato");
+                String timestamp = rs.getString("Tidspunkt");
+                int duration = rs.getInt("Varighet");
+                int form = rs.getInt("PersonligForm");
+                String performance = rs.getString("PersonligPrestasjon");
+
+                int pot = duration * form;
+
+                if (pot > best) {
+                    bestStr = "ID: " + id;
+                    bestStr += ", Dato: " + date;
+                    bestStr += ", Tidspunkt: " + timestamp;
+                    bestStr += ", Varighet: " + duration;
+                    bestStr += ", Form: " + form;
+                    bestStr += ", Prestasjon: " + performance;
+                }
+            }
+
+            System.out.println("Din beste økt var som følgende!");
+            System.out.println(bestStr);
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void getStats() {
@@ -95,8 +127,8 @@ public class Diary {
 
         Setup su = new Setup();
 
-        String sql = su.getSQL("sql.txt");
-        su.connectToDB(DB_URL, sql);
+        //String sql = su.getSQL("sql.txt");
+        //su.connectToDB(DB_URL, sql);
 
         Diary diary = new Diary();
         diary.chooseCase();
